@@ -64,7 +64,7 @@ class HybridLeNet5(torch.nn.Module):
         self.qc_1    = qlayer.qlayer
         self.fc_3    = torch.nn.Linear(qlayer.n_qubits, ou_dim)
         self.relu    = torch.nn.ReLU()
-        self.softmax = torch.nn.Softmax(dim=1)
+        #self.softmax = torch.nn.Softmax(dim=1)
     
     def forward(self, x : torch.Tensor) -> torch.Tensor:
         '''
@@ -77,7 +77,7 @@ class HybridLeNet5(torch.nn.Module):
 
             Returns:  
             --------  
-            - out : torch.Tensor  
+            - x : torch.Tensor  
                 output from the torch model  
         '''
         
@@ -88,5 +88,5 @@ class HybridLeNet5(torch.nn.Module):
         x = self.relu(self.fc_2(x))
         x = self.relu(self.qc_1(x))
         x = self.fc_3(x)
-        out = self.softmax(x)
-        return out
+        #out = self.softmax(x)
+        return x

@@ -130,7 +130,7 @@
 </span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">qc_1</span>    <span class="o">=</span> <span class="n">qlayer</span><span class="o">.</span><span class="n">qlayer</span>
 </span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">fc_3</span>    <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">qlayer</span><span class="o">.</span><span class="n">n_qubits</span><span class="p">,</span> <span class="n">ou_dim</span><span class="p">)</span>
 </span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span>    <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>        <span class="c1">#self.softmax = torch.nn.Softmax(dim=1)</span>
 </span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>    
 </span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 </span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -143,7 +143,7 @@
 </span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>
 </span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="sd">            Returns:  </span>
 </span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="sd">            --------  </span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a><span class="sd">            - out : torch.Tensor  </span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a><span class="sd">            - x : torch.Tensor  </span>
 </span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a><span class="sd">                output from the torch model  </span>
 </span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a><span class="sd">        &#39;&#39;&#39;</span>
 </span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>        
@@ -154,8 +154,8 @@
 </span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc_2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qc_1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="L-90"><a href="#L-90"><span class="linenos">90</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos">91</span></a>        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos">92</span></a>        <span class="k">return</span> <span class="n">out</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos">91</span></a>        <span class="c1">#out = self.softmax(x)</span>
+</span><span id="L-92"><a href="#L-92"><span class="linenos">92</span></a>        <span class="k">return</span> <span class="n">x</span>
 </span></pre></div>
 
 
@@ -229,7 +229,7 @@
 </span><span id="HybridLeNet5-65"><a href="#HybridLeNet5-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">qc_1</span>    <span class="o">=</span> <span class="n">qlayer</span><span class="o">.</span><span class="n">qlayer</span>
 </span><span id="HybridLeNet5-66"><a href="#HybridLeNet5-66"><span class="linenos">66</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">fc_3</span>    <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">qlayer</span><span class="o">.</span><span class="n">n_qubits</span><span class="p">,</span> <span class="n">ou_dim</span><span class="p">)</span>
 </span><span id="HybridLeNet5-67"><a href="#HybridLeNet5-67"><span class="linenos">67</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span>    <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
-</span><span id="HybridLeNet5-68"><a href="#HybridLeNet5-68"><span class="linenos">68</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="HybridLeNet5-68"><a href="#HybridLeNet5-68"><span class="linenos">68</span></a>        <span class="c1">#self.softmax = torch.nn.Softmax(dim=1)</span>
 </span><span id="HybridLeNet5-69"><a href="#HybridLeNet5-69"><span class="linenos">69</span></a>    
 </span><span id="HybridLeNet5-70"><a href="#HybridLeNet5-70"><span class="linenos">70</span></a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 </span><span id="HybridLeNet5-71"><a href="#HybridLeNet5-71"><span class="linenos">71</span></a><span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -242,7 +242,7 @@
 </span><span id="HybridLeNet5-78"><a href="#HybridLeNet5-78"><span class="linenos">78</span></a>
 </span><span id="HybridLeNet5-79"><a href="#HybridLeNet5-79"><span class="linenos">79</span></a><span class="sd">            Returns:  </span>
 </span><span id="HybridLeNet5-80"><a href="#HybridLeNet5-80"><span class="linenos">80</span></a><span class="sd">            --------  </span>
-</span><span id="HybridLeNet5-81"><a href="#HybridLeNet5-81"><span class="linenos">81</span></a><span class="sd">            - out : torch.Tensor  </span>
+</span><span id="HybridLeNet5-81"><a href="#HybridLeNet5-81"><span class="linenos">81</span></a><span class="sd">            - x : torch.Tensor  </span>
 </span><span id="HybridLeNet5-82"><a href="#HybridLeNet5-82"><span class="linenos">82</span></a><span class="sd">                output from the torch model  </span>
 </span><span id="HybridLeNet5-83"><a href="#HybridLeNet5-83"><span class="linenos">83</span></a><span class="sd">        &#39;&#39;&#39;</span>
 </span><span id="HybridLeNet5-84"><a href="#HybridLeNet5-84"><span class="linenos">84</span></a>        
@@ -253,8 +253,8 @@
 </span><span id="HybridLeNet5-89"><a href="#HybridLeNet5-89"><span class="linenos">89</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc_2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="HybridLeNet5-90"><a href="#HybridLeNet5-90"><span class="linenos">90</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qc_1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="HybridLeNet5-91"><a href="#HybridLeNet5-91"><span class="linenos">91</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="HybridLeNet5-92"><a href="#HybridLeNet5-92"><span class="linenos">92</span></a>        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="HybridLeNet5-93"><a href="#HybridLeNet5-93"><span class="linenos">93</span></a>        <span class="k">return</span> <span class="n">out</span>
+</span><span id="HybridLeNet5-92"><a href="#HybridLeNet5-92"><span class="linenos">92</span></a>        <span class="c1">#out = self.softmax(x)</span>
+</span><span id="HybridLeNet5-93"><a href="#HybridLeNet5-93"><span class="linenos">93</span></a>        <span class="k">return</span> <span class="n">x</span>
 </span></pre></div>
 
 
@@ -325,7 +325,7 @@ The size of the network output is defined by ou_dim.</p>
 </span><span id="HybridLeNet5.__init__-65"><a href="#HybridLeNet5.__init__-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">qc_1</span>    <span class="o">=</span> <span class="n">qlayer</span><span class="o">.</span><span class="n">qlayer</span>
 </span><span id="HybridLeNet5.__init__-66"><a href="#HybridLeNet5.__init__-66"><span class="linenos">66</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">fc_3</span>    <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">qlayer</span><span class="o">.</span><span class="n">n_qubits</span><span class="p">,</span> <span class="n">ou_dim</span><span class="p">)</span>
 </span><span id="HybridLeNet5.__init__-67"><a href="#HybridLeNet5.__init__-67"><span class="linenos">67</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span>    <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
-</span><span id="HybridLeNet5.__init__-68"><a href="#HybridLeNet5.__init__-68"><span class="linenos">68</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="HybridLeNet5.__init__-68"><a href="#HybridLeNet5.__init__-68"><span class="linenos">68</span></a>        <span class="c1">#self.softmax = torch.nn.Softmax(dim=1)</span>
 </span></pre></div>
 
 
@@ -371,7 +371,7 @@ integer representing the output size of the hybrid model  </li>
 </span><span id="HybridLeNet5.forward-78"><a href="#HybridLeNet5.forward-78"><span class="linenos">78</span></a>
 </span><span id="HybridLeNet5.forward-79"><a href="#HybridLeNet5.forward-79"><span class="linenos">79</span></a><span class="sd">            Returns:  </span>
 </span><span id="HybridLeNet5.forward-80"><a href="#HybridLeNet5.forward-80"><span class="linenos">80</span></a><span class="sd">            --------  </span>
-</span><span id="HybridLeNet5.forward-81"><a href="#HybridLeNet5.forward-81"><span class="linenos">81</span></a><span class="sd">            - out : torch.Tensor  </span>
+</span><span id="HybridLeNet5.forward-81"><a href="#HybridLeNet5.forward-81"><span class="linenos">81</span></a><span class="sd">            - x : torch.Tensor  </span>
 </span><span id="HybridLeNet5.forward-82"><a href="#HybridLeNet5.forward-82"><span class="linenos">82</span></a><span class="sd">                output from the torch model  </span>
 </span><span id="HybridLeNet5.forward-83"><a href="#HybridLeNet5.forward-83"><span class="linenos">83</span></a><span class="sd">        &#39;&#39;&#39;</span>
 </span><span id="HybridLeNet5.forward-84"><a href="#HybridLeNet5.forward-84"><span class="linenos">84</span></a>        
@@ -382,8 +382,8 @@ integer representing the output size of the hybrid model  </li>
 </span><span id="HybridLeNet5.forward-89"><a href="#HybridLeNet5.forward-89"><span class="linenos">89</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc_2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="HybridLeNet5.forward-90"><a href="#HybridLeNet5.forward-90"><span class="linenos">90</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qc_1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </span><span id="HybridLeNet5.forward-91"><a href="#HybridLeNet5.forward-91"><span class="linenos">91</span></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="HybridLeNet5.forward-92"><a href="#HybridLeNet5.forward-92"><span class="linenos">92</span></a>        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="HybridLeNet5.forward-93"><a href="#HybridLeNet5.forward-93"><span class="linenos">93</span></a>        <span class="k">return</span> <span class="n">out</span>
+</span><span id="HybridLeNet5.forward-92"><a href="#HybridLeNet5.forward-92"><span class="linenos">92</span></a>        <span class="c1">#out = self.softmax(x)</span>
+</span><span id="HybridLeNet5.forward-93"><a href="#HybridLeNet5.forward-93"><span class="linenos">93</span></a>        <span class="k">return</span> <span class="n">x</span>
 </span></pre></div>
 
 
@@ -399,7 +399,7 @@ input for the torch model  </li>
 <h2 id="returns">Returns:  </h2>
 
 <ul>
-<li>out : torch.Tensor <br />
+<li>x : torch.Tensor <br />
 output from the torch model</li>
 </ul>
 </div>

@@ -1,4 +1,4 @@
-#copio hcnn
+#copio hcnn e definisco HybridLeNet5_1
 import sys
 sys.path += ['.', './layers/', './utils/']
 
@@ -7,7 +7,7 @@ from hqm.utils.sizes import size_conv_layer
 
 import torch
 
-class HybridLeNet5(torch.nn.Module):
+class HybridLeNet5_1(torch.nn.Module):
     '''
         This class implements a quantum hybrid convolutional neural network based on LeNet-5.
         HybridLeNet5 is composed of classical convlutional block and hybrid quantum MLP.

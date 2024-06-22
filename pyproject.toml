@@ -2,7 +2,8 @@
 requires = [
     "setuptools>=40.8.0",
     "wheel",
-    "numpy==1.23.5", "pennylane==0.28.0"
+    "numpy==1.23.5", 
+    "pennylane==0.28.0"
 ]
 build-backend = "setuptools.build_meta"
 
@@ -27,6 +28,6 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/alessandrosebastianelli/hybrid_quantum_models"
-"Bug Tracker" = "https://github.com/alessandrosebastianelli/hybrid_quantum_models/issues"
-"How to contribute" = https://github.com/alessandrosebastianelli/hybrid_quantum_models/issues/1
+homepage = "https://github.com/alessandrosebastianelli/hybrid_quantum_models"
+bug_tracker = "https://github.com/alessandrosebastianelli/hybrid_quantum_models/issues"
+contributing = "https://github.com/alessandrosebastianelli/hybrid_quantum_models/issues/1"

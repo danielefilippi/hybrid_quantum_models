@@ -14,13 +14,15 @@ class HybridLeNet5_quanv(torch.nn.Module):
         The size of the network output is defined by ou_dim.
     '''
 
-    def __init__(self, qlayer : BasicLayer, in_shape : tuple, ou_dim : int) -> None:
+    def __init__(self, qlayer_1, qlayer_2 in_shape : tuple, ou_dim : int) -> None:
         '''
             HybridLeNet5 constructor.  
 
             Parameters:  
             -----------  
-            - qlayer : hqm.layers.basilayer.BasicLayer  
+            - qlayer_1 : hqm.layers.Quanvolution2D  
+                hqm quantum convolutional layer  
+            - qlayer_2 : hqm.layers.BasicLayer  
                 hqm quantum layer to be stacked between two fully connected layers  
             - in_shape : tuple  
                 tuple representing the shape of the input image (channels, widht, height)  
@@ -62,9 +64,9 @@ class HybridLeNet5_quanv(torch.nn.Module):
 
         self.fc_1    = torch.nn.Linear(self.flatten_size, fc_2_size)
         self.fc_2    = torch.nn.Linear(fc_2_size, qlayer.n_qubits)
-        self.qc_1    = qlayer.qlayer
-        self.qc_2    = q.layer.qlayer
-        self.fc_3    = torch.nn.Linear(qlayer.n_qubits, ou_dim)
+        self.qc_1    = qlayer_1
+        self.qc_2    = q.layer_2.qlayer
+        self.fc_3    = torch.nn.Linear(qlayer_2.n_qubits, ou_dim)
         self.relu    = torch.nn.ReLU()
         #self.softmax = torch.nn.Softmax(dim=1)
     

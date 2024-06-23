@@ -14,7 +14,7 @@ class HybridLeNet5_quanv(torch.nn.Module):
         The size of the network output is defined by ou_dim.
     '''
 
-    def __init__(self, qlayer_1, qlayer_2 in_shape : tuple, ou_dim : int) -> None:
+    def __init__(self, qlayer_1, qlayer_2, in_shape : tuple, ou_dim : int) -> None:
         '''
             HybridLeNet5 constructor.  
 

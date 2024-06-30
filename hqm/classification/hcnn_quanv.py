@@ -64,7 +64,7 @@ class HybridLeNet5_quanv(torch.nn.Module):
 
         self.fc_1    = torch.nn.Linear(self.flatten_size, fc_2_size)
         self.fc_2    = torch.nn.Linear(fc_2_size, qlayer.n_qubits)
-        self.qc_1    = qlayer_1
+        self.qc_1    = qlayer_1.qlayer
         self.qc_2    = q.layer_2.qlayer
         self.fc_3    = torch.nn.Linear(qlayer_2.n_qubits, ou_dim)
         self.relu    = torch.nn.ReLU()

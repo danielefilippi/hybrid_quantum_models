@@ -91,7 +91,14 @@ class HybridLeNet5_quanv(torch.nn.Module):
         x = self.relu(self.fc_1(x))
         x = self.relu(self.fc_2(x))
         x = self.relu(self.qc_1(x))
+        x = x.view(x.shape[0], -1, self.qc_2.n_qubits)
+        #lo aggiungo per garantire la coretta dimensione dell'outupt, continuo sotto
         x = self.relu(self.qc_2(x))
         x = self.fc_3(x)
         #out = self.softmax(x)
         return x
+'''
+l'output di qc_1 è (batch_size, filters, h_out, w_out), per garantire che abbia poi le dimensioni corrette si fa x.shape[0] per garantire l'uso della dim del batch
+size, -1 fa si che pytorch calcolchi la dim coretta
+'''
+        

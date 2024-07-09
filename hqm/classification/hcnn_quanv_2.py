@@ -6,7 +6,7 @@ from hqm.utils.sizes import size_conv_layer
 from hqm.layers.quanvolution import Quanvolution2D
 import torch
 
-class HybridLeNet5(torch.nn.Module):
+class HybridLeNet5_quanv_2(torch.nn.Module):
     '''
         This class implements a quantum hybrid convolutional neural network based on LeNet-5.
         HybridLeNet5 is composed of classical convlutional block and hybrid quantum MLP.

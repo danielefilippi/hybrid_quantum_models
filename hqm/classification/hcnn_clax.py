@@ -1,3 +1,11 @@
+import sys
+sys.path += ['.', './layers/', './utils/']
+
+from hqm.layers.basiclayer import BasicLayer
+from hqm.utils.sizes import size_conv_layer
+from hqm.layers.quanvolution import Quanvolution2D
+import torch
+
 class ClaxLeNet5(nn.Module):
     def __init__(self, in_shape: tuple, ou_dim: int) -> None:
         super().__init__()

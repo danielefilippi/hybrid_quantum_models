@@ -55,11 +55,12 @@ class HybridLeNet5_quanv_2(torch.nn.Module):
         self.max_pool2 = torch.nn.MaxPool2d(kernel_size = (2,2), stride=(2,2))
         w4 = size_conv_layer(w3, kernel_size=2, padding=0, stride=2)
         h4 = size_conv_layer(h3, kernel_size=2, padding=0, stride=2)
+        c3 = 3 #filters must be lower than n_quibits
         # Introduco il quanvolutional layer, metto stride=1 e padding same cosi mi garantisce che le dimensioin siano uguali all'input
-        self.qc_1 = Quanvolution2D(qlayer_1, filters=c2, kernelsize=2, stride=1, padding='same', aiframework='torch')
+        self.qc_1 = Quanvolution2D(qlayer_1, filters=c3, kernelsize=2, stride=1, padding='same', aiframework='torch')
         
         # calcolo dimensione output
-        self.flatten_size = w4 * h4 * c2
+        self.flatten_size = w4 * h4 * c3
       
         fc_2_size = int(self.flatten_size * 30 / 100)
 

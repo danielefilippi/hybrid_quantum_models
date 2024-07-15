@@ -13,7 +13,7 @@ class HybridLeNet5_quanv_2(torch.nn.Module):
         The size of the network output is defined by ou_dim.
     '''
 
-    def __init__(self, qlayer_1: BasicLayer, qlayer_2: BasicLayer, in_shape: tuple, ou_dim: int) -> None
+    def __init__(self, qlayer_1: Quanvolution2D, qlayer_2: BasicLayer, in_shape: tuple, ou_dim: int) -> None
         '''
             HybridLeNet5 constructor.  
 
@@ -55,21 +55,20 @@ class HybridLeNet5_quanv_2(torch.nn.Module):
         self.max_pool2 = torch.nn.MaxPool2d(kernel_size = (2,2), stride=(2,2))
         w4 = size_conv_layer(w3, kernel_size=2, padding=0, stride=2)
         h4 = size_conv_layer(h3, kernel_size=2, padding=0, stride=2)
-        c3 = 3 #filters must be lower than n_quibits
-        # Introduco il quanvolutional layer, metto stride=1 e padding same cosi mi garantisce che le dimensioin siano uguali all'input
-        self.qc_1 = Quanvolution2D(qlayer_1, filters=c3, kernelsize=2, stride=1, padding='same', aiframework='torch')
+        c3 = qlayer_1.filters  # filters must match the number of filters in qlayer_1
+        self.qc_1 = qlayer_1
         
         # calcolo dimensione output
         self.flatten_size = w4 * h4 * c3
-      
+            
         fc_2_size = int(self.flatten_size * 30 / 100)
 
-        self.fc_1    = torch.nn.Linear(self.flatten_size, fc_2_size)
-        self.fc_2    = torch.nn.Linear(fc_2_size, qlayer_2.n_qubits)
-        
-        self.qc_2    = q.layer_2.qlayer
-        self.fc_3    = torch.nn.Linear(qlayer_2.n_qubits, ou_dim)
-        self.relu    = torch.nn.ReLU()
+        self.fc_1 = torch.nn.Linear(self.flatten_size, fc_2_size)
+        self.fc_2 = torch.nn.Linear(fc_2_size, qlayer_2.n_qubits)
+
+        self.qc_2 = qlayer_2
+        self.fc_3 = torch.nn.Linear(qlayer_2.n_qubits, ou_dim)
+        self.relu = torch.nn.ReLU()
         #self.softmax = torch.nn.Softmax(dim=1)
     
     def forward(self, x : torch.Tensor) -> torch.Tensor:

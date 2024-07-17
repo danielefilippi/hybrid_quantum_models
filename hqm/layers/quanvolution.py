@@ -50,8 +50,8 @@ class Quanvolution2D(torch.nn.Module):
         self.n_qubits    = qcircuit.n_qubits
         
         if kernelsize**2 > self.n_qubits:         raise Exception(f"kernelsize**2 must be lower than n_qubits, found kernelsize**2={kernelsize**2} and {self.n_qubits}")
-        if filters > self.n_qubits:               raise Exception(f"filters must be lower than n_qubits, found {filters} and {self.n_qubits}")
-        
+       ## if filters > self.n_qubits:               raise Exception(f"filters must be lower than n_qubits, found {filters} and {self.n_qubits}")
+        if (kernelsize**2)*filters>  self.n_qubits:               raise Exception(f"filters must be lower than n_qubits, found {filters} and {self.n_qubits}")
         self.filters    = filters 
         self.kernelsize = kernelsize
         self.stride     = stride

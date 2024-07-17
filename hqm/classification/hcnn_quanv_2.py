@@ -60,7 +60,8 @@ class HybridLeNet5_quanv_2(torch.nn.Module):
         
         # calcolo dimensione output
         self.flatten_size = w4 * h4 * c3
-            
+        #flatten_size = x.numel() // x.size(0)  # x.numel() / batch_size 
+        #questo sopra mi permetterebbe di calcolarlo in maniera dinamica 
         fc_2_size = int(self.flatten_size * 30 / 100)
 
         self.fc_1 = torch.nn.Linear(self.flatten_size, fc_2_size)
@@ -87,19 +88,14 @@ class HybridLeNet5_quanv_2(torch.nn.Module):
         '''
         
         x = self.max_pool1(self.relu(self.conv_1(x)))
-        print(f"Dimensione di x dopo conv_1 e max_pool1: {x.shape}")
         x = self.max_pool2(self.relu(self.conv_2(x)))
-        print(f"Dimensione di x dopo conv_2 e max_pool2: {x.shape}")
         x = self.relu(self.qc_1(x))
         print(f"Dimensione di x dopo qc_1: {x.shape}")
         x = x.view(-1, self.flatten_size)
-        print(f"Dimensione di x dopo view: {x.shape}")
         x = self.relu(self.fc_1(x))
         x = self.relu(self.fc_2(x))
         x = self.relu(self.qc_2(x))
-        print(f"Dimensione di x dopo qc_2: {x.shape}")
         x = self.fc_3(x)
         #out = self.softmax(x)
-        print(f"Flatten size calcolato: {self.flatten_size}")
         return x
         

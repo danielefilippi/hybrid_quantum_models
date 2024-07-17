@@ -89,6 +89,7 @@ class HybridLeNet5_quanv_2(torch.nn.Module):
         x = self.max_pool1(self.relu(self.conv_1(x)))
         x = self.max_pool2(self.relu(self.conv_2(x)))
         x = self.relu(self.qc_1(x))
+         print(f"Dimensione di x prima del view: {x.shape}")
         x = x.view(-1, self.flatten_size)
         x = self.relu(self.fc_1(x))
         x = self.relu(self.fc_2(x))

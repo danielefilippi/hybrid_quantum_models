@@ -7,7 +7,7 @@ sys.path += ['.', './utils/', '/circuits/']
 from hqm.circuits.circuit import QuantumCircuit
 from hqm.utils.aiinterface import AIInterface
 
-
+#la differenza è che non aggiungo una dimensione in piu out [(bs, self.filters, h_out, w_out, ch)] ma solo out[(bs, self.filters, h_out, w_out)], alla fine normalozzo dividendo per ch
 class Quanvolution2D_mio(torch.nn.Module):
     '''
         Quanvolution2D layer.
@@ -108,6 +108,7 @@ class Quanvolution2D_mio(torch.nn.Module):
 
                         for f in range(self.filters):
                             out[b, f, j, k] += q_results[f]
+        out /= ch 
 
         if self.padding == 'same':
             out = torch.nn.functional.pad(out, (w_pad, w_pad, h_pad, h_pad), "constant", 0)

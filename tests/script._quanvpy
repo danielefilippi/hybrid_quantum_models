@@ -12,15 +12,18 @@ class HybridNet(pl.LightningModule):
 
     def __init__(self):
         super(HybridNet, self).__init__()
-        dev = qml.device("lightning.qubit", wires=4)
+        dev1 = qml.device("lightning.qubit", wires=16)
+        dev2 = qml.device("lightning.qubit", wires=4)
         
-        qcircuit_1 = BasicEntangledCircuit(n_qubits=4, n_layers=2, dev=dev)
-        qlayer_1 = Quanvolution2D(qcircuit_1, filters=3, kernelsize=2, stride=2, padding='same', aiframework='torch')
-        qlayer_2 = BasicLayer(qcircuit_1, aiframework='torch')
+        qcircuit_1 = BasicEntangledCircuit(n_qubits=16, n_layers=1, dev=dev1)
+        qlayer_1 = Quanvolution2D(qcircuit_1, filters=3, kernelsize=2, stride=1, padding='same', aiframework='torch')
+        qcircuit_2 = BasicEntangledCircuit(n_qubits=4, n_layers=2, dev=dev2)
+        qlayer_2 = BasicLayer(qcircuit_2, aiframework='torch')
         
         
         self.network = HybridLeNet5_quanv_2(qlayer_1= qlayer_1, qlayer_2=qlayer_2, in_shape=(3, 64, 64), ou_dim=10)
         self.loss = torch.nn.CrossEntropyLoss()
+        
 
     def forward(self, x):
         return self.network.forward(x)

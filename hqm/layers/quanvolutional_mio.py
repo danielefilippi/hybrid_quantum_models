@@ -8,7 +8,7 @@ from hqm.circuits.circuit import QuantumCircuit
 from hqm.utils.aiinterface import AIInterface
 
 
-class Quanvolution2D(torch.nn.Module):
+class Quanvolution2D_mio(torch.nn.Module):
     '''
         Quanvolution2D layer.
 

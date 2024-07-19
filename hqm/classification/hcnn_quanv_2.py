@@ -39,7 +39,8 @@ class HybridLeNet5_quanv_2(torch.nn.Module):
         c, w, h = in_shape
         
         c1 = 6
-        self.conv_1    = torch.nn.Conv2d(in_channels=c, out_channels=c1, kernel_size=5, padding=2, stride=1)
+        #ho modificato padding da 2 a 0
+        self.conv_1    = torch.nn.Conv2d(in_channels=c, out_channels=c1, kernel_size=5, padding=0, stride=1)
         w1 = size_conv_layer(w, kernel_size=5, padding=2, stride=1)
         h1 = size_conv_layer(h, kernel_size=5, padding=2, stride=1)
         
